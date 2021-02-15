@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Aplikasi Kriptografi - Caesar</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+	<div class="jumbotron jumbotron-fluid" style="background-color: purple">
+  		<div class="container">
+    		<h1 style="color: white">Aplikasi Kriptografi Caesar Cipher</h1>
+  		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<form action="/action_page.php">
+    				<div class="form-group">
+    					<label for="pesan"><h5>Masukan Pesan</h5></label>
+    					<textarea id="pesan" name="pesan" class="form-control"></textarea>
+    					<small class="text-muted">Masukan yang diperbolehkan: huruf</small>
+  					</div>
+  					<div class="form-group">
+    					<label for="katakunci"><h5>Kunci</h5></label>
+    					<input type="number" min="0" max="25" id="kunci" name="kunci" class="form-control col-md-6">
+    					<small class="text-muted">Masukan yang diperbolehkan: angka(1-25)</small>
+  					</div>
+  					<div class="form-group" id="enkripsi" style="display: none;">
+    					<label for="pesan"><h5>Hasil Enkripsi</h5></label>
+    					<textarea id="hasil_enkripsi" name="hasil_enkripsi" class="form-control"></textarea>
+  					</div>
+  					<div class="form-group" id="dekripsi" style="display: none;">
+    					<label for="pesan"><h5>Hasil Dekripsi</h5></label>
+    					<textarea id="hasil_dekripsi" name="hasil_dekripsi" class="form-control"></textarea>
+  					</div>
+  					<br>
+  					<div>
+  						<button type="button" class="btn btn-secondary" id="btn_enkripsi" name="btn_enkripsi" onclick="enkripsi()">Enkripsi</button>
+    					<button type="button" class="btn btn-secondary" id="btn_dekripsi" name="btn_dekripsi" onclick="dekripsi()">Dekripsi</button>
+    					<button type="reset" class="btn btn-danger" id="btn_batal" name="btn_batal">Batal</button>
+    					<a href=""><button type="button" class="btn btn-danger" id="btn_reset" name="btn_reset" style="display: none;">Reset</button></a>
+  					</div>
+  				</form>
+			</div>
+  		</div>
+	</div>
+
+	<br><br>
+	<hr>
+		<div class="container">
+			<p>&copy; Tri Puji Ning Tyas - 17670011</p>
+		</div>
+
+	<script type="text/javascript">
+    function enkripsi() {
+        var text = document.getElementById("pesan").value;
+        var key = document.getElementById("kunci").value;
+
+        shift = (26 + key) % 26;
+        var result = "";
+        for (var i = 0; i < text.length; i++) {
+        	var c = text.charCodeAt(i);
+        	if (65 <= c && c <= 90) { result += String.fromCharCode((c - 65 + shift) % 26 + 65); } //uppercase
+        	else if (97 <= c && c <= 122) { result += String.fromCharCode((c - 97 + shift) % 26 + 97); } //lowercase
+        	else { result += text.charAt(i); }
+        }
+
+        document.getElementById("enkripsi").style.display = "block";
+        document.getElementById("hasil_enkripsi").value = result;
+        document.getElementById("btn_enkripsi").style.display = "none";
+        document.getElementById("btn_dekripsi").style.display = "none";
+        document.getElementById("btn_batal").style.display = "none";
+        document.getElementById("btn_reset").style.display = "block";
+    }
+
+    function dekripsi() {
+    	var text = document.getElementById("pesan").value;
+        var key = document.getElementById("kunci").value;
+
+        shift = (26 - key) % 26;
+        var result = "";
+        for (var i = 0; i < text.length; i++) {
+        	var c = text.charCodeAt(i);
+        	if (65 <= c && c <= 90) { result += String.fromCharCode((c - 65 + shift) % 26 + 65); } //uppercase
+        	else if (97 <= c && c <= 122) { result += String.fromCharCode((c - 97 + shift) % 26 + 97); } //lowercase
+        	else { result += text.charAt(i); } 
+        }
+
+        document.getElementById("dekripsi").style.display = "block";
+        document.getElementById("hasil_dekripsi").value = result;
+        document.getElementById("btn_enkripsi").style.display = "none";
+        document.getElementById("btn_dekripsi").style.display = "none";
+        document.getElementById("btn_batal").style.display = "none";
+        document.getElementById("btn_reset").style.display = "block";
+    }
+</script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
